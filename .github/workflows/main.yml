@@ -16,6 +16,18 @@ jobs:
         with:
           gradle-version: current
       - run: gradle build --stacktrace
+      - name: Inspect render classes
+        if: failure()
+        run: |
+          for j in $(find "$HOME/.gradle" . -name "*.jar" -path "*loom*" 2>/dev/null); do
+            if unzip -l "$j" 2>/dev/null | grep -q "net/minecraft/client/render/RenderLayer.class"; then
+              echo "=== JAR: $j"
+              for c in $(unzip -l "$j" | awk '{print $4}' | grep -E "^net/minecraft/client/render/(RenderLayer|RenderLayers|RenderType|RenderTypes|TexturedRenderLayers)\.class$" | sed 's/\.class$//; s#/#.#g'); do
+                echo "--- $c"
+                javap -cp "$j" -public "$c" | grep -E "static" | grep -i -E "Cutout|EntitySolid|Identifier" | head -40
+              done
+            fi
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: inlay-mod
