@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "inlay",
+  "version": "${version}",
+  "name": "Inlay",
+  "description": "Вставляйте текстуру любого блока в грань другого блока - эффект «утопленного» блока, как в Backrooms.",
+  "authors": ["You"],
+  "license": "MIT",
+  "icon": "assets/inlay/textures/item/inlay_chisel.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.example.inlay.InlayMod"],
+    "client": ["com.example.inlay.client.InlayClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
