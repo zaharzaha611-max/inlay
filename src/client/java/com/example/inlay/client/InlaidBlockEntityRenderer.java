@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.block.BlockModels;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -82,7 +82,7 @@ public class InlaidBlockEntityRenderer implements BlockEntityRenderer<InlaidBloc
 	public void render(InlaidRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState camera) {
 		if (state.hostSprite == null) return;
 
-		queue.submitCustom(matrices, RenderLayer.getEntityCutoutNoCull(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE),
+		queue.submitCustom(matrices, TexturedRenderLayers.entityCutoutNoCull(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE),
 				(entry, vc) -> {
 					for (int i = 0; i < 6; i++) {
 						drawFace(entry, vc, state.hostSprite, state.inlaySprites[i], BASIS[i], state.faceLight[i]);
